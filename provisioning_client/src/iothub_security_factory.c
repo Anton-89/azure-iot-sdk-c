@@ -56,7 +56,9 @@ int iothub_security_init(IOTHUB_SECURITY_TYPE sec_type)
     int result;
 
     SECURE_DEVICE_TYPE secure_device_type_from_caller = get_secure_device_type(sec_type);
-
+    LogError("**iothub_security_init is called\n");
+    LogError("**secure_device_type_from_caller %d and SECURE_DEVICE_TYPE_UNKNOWN is %d\n", secure_device_type_from_caller, SECURE_DEVICE_TYPE_UNKNOWN);
+    
     if (secure_device_type_from_caller == SECURE_DEVICE_TYPE_UNKNOWN)
     {
         LogError("Security type %d is not supported in this SDK build", sec_type);
@@ -68,6 +70,7 @@ int iothub_security_init(IOTHUB_SECURITY_TYPE sec_type)
         SECURE_DEVICE_TYPE security_device_type_from_prov = prov_dev_security_get_type();
         if (security_device_type_from_prov == SECURE_DEVICE_TYPE_UNKNOWN)
         {
+            LogError("**trying to prov_dev_security_init with %d\n", secure_device_type_from_caller);
             result = prov_dev_security_init(secure_device_type_from_caller);
         }
         else if (secure_device_type_from_caller != security_device_type_from_prov)
