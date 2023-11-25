@@ -273,7 +273,7 @@ PROV_AUTH_HANDLE prov_auth_create(void)
             }
         }
 #endif
-//#if defined(HSM_TYPE_SYMM_KEY) || defined(HSM_AUTH_TYPE_CUSTOM)
+#if defined(HSM_TYPE_SYMM_KEY) || defined(HSM_AUTH_TYPE_CUSTOM)
         LogError("##security type is %d", sec_type);
         LogError("##SECURE_DEVICE_TYPE_SYMMETRIC_KEY is %d", SECURE_DEVICE_TYPE_SYMMETRIC_KEY);
         if (sec_type == SECURE_DEVICE_TYPE_SYMMETRIC_KEY)
@@ -294,7 +294,7 @@ PROV_AUTH_HANDLE prov_auth_create(void)
                 result = NULL;
             }
         }
-//#endif
+#endif
 
         if (result == NULL)
         {
