@@ -58,6 +58,9 @@ int prov_dev_security_init(SECURE_DEVICE_TYPE hsm_type)
 
     IOTHUB_SECURITY_TYPE security_type_from_caller = get_iothub_security_type(hsm_type);
 
+    LogError("--prov_dev_security_init() is called\n");
+    LogError("--security_type_from_caller is %d\n", security_type_from_caller);
+    
     if (security_type_from_caller == IOTHUB_SECURITY_TYPE_UNKNOWN)
     {
         LogError("HSM type %d is not supported on this SDK build", hsm_type);
@@ -66,6 +69,7 @@ int prov_dev_security_init(SECURE_DEVICE_TYPE hsm_type)
     else
     {
         g_device_hsm_type = hsm_type;
+        LogError("--g_device_hsm_type is updated as %d\n", g_device_hsm_type);
         IOTHUB_SECURITY_TYPE security_type_from_iot = iothub_security_type();
         if (security_type_from_iot == IOTHUB_SECURITY_TYPE_UNKNOWN)
         {
@@ -84,6 +88,7 @@ int prov_dev_security_init(SECURE_DEVICE_TYPE hsm_type)
 
         if (result == 0)
         {
+            LogError("--trying to initialize_hsm_system\n");
             result = initialize_hsm_system();
         }
     }
