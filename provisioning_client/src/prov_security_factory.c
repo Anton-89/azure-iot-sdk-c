@@ -124,6 +124,7 @@ SECURE_DEVICE_TYPE prov_dev_security_get_type(void)
 int prov_dev_set_symmetric_key_info(const char* registration_name, const char* symmetric_key)
 {
     int result;
+    LogError("&&prov_dev_set_symmetric_key_info is called");
     if (registration_name == NULL || symmetric_key == NULL)
     {
         LogError("Invalid parameter specified reg_name: %p, symm_key: %p", registration_name, symmetric_key);
@@ -157,6 +158,8 @@ int prov_dev_set_symmetric_key_info(const char* registration_name, const char* s
             g_symm_key_reg_name = temp_name;
             g_symm_key = temp_key;
 
+            LogError("&&g_symm_key_reg_name is %s and g_symm_key is %s", g_symm_key_reg_name, g_symm_key);
+            
             // Sync dps with iothub only if it is NULL
             if (iothub_security_get_symmetric_key() == NULL || iothub_security_get_symm_registration_name() == NULL)
             {
