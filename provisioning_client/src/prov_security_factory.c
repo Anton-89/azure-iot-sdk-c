@@ -10,8 +10,8 @@
 
 #include "hsm_client_data.h"
 
-//static SECURE_DEVICE_TYPE g_device_hsm_type = SECURE_DEVICE_TYPE_UNKNOWN;
-static SECURE_DEVICE_TYPE g_device_hsm_type = SECURE_DEVICE_TYPE_SYMMETRIC_KEY;
+static SECURE_DEVICE_TYPE g_device_hsm_type = SECURE_DEVICE_TYPE_UNKNOWN;
+//static SECURE_DEVICE_TYPE g_device_hsm_type = SECURE_DEVICE_TYPE_SYMMETRIC_KEY;
 static char* g_symm_key = NULL;
 static char* g_symm_key_reg_name = NULL;
 
