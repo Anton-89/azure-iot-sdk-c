@@ -118,6 +118,7 @@ IOTHUB_SECURITY_TYPE iothub_security_type()
 int iothub_security_set_symmetric_key_info(const char* registration_name, const char* symmetric_key)
 {
     int result;
+    LogError("++iothub_security_set_symmetric_key_info is called");
     if (registration_name == NULL || symmetric_key == NULL)
     {
         LogError("Invalid parameter specified reg_name: %p, symm_key: %p", registration_name, symmetric_key);
@@ -150,7 +151,7 @@ int iothub_security_set_symmetric_key_info(const char* registration_name, const 
             }
             g_symm_key_reg_name = temp_name;
             g_symm_key = temp_key;
-
+            LogError("++g_symm_key_reg_name is %p, g_symm_key is %p", g_symm_key_reg_name, g_symm_key);
             // Sync iothub with dps
             if (prov_dev_get_symmetric_key() == NULL || prov_dev_get_symm_registration_name() == NULL)
             {
