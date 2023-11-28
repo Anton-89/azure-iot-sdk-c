@@ -184,12 +184,12 @@ int prov_dev_set_symmetric_key_info(const char* registration_name, const char* s
 
 const char* prov_dev_get_symmetric_key(void)
 {
-    LogError("&&prov_dev_get_symmetric_key is called", (void*)g_symm_key);
+    LogError("&&prov_dev_get_symmetric_key is called(%p)", (void*)g_symm_key);
     return g_symm_key;
 }
 
 const char* prov_dev_get_symm_registration_name(void)
 {
-    LogError("&&prov_dev_get_symm_registration_name is called", (void*)g_symm_key_reg_name);
+    LogError("&&prov_dev_get_symm_registration_name is called(%p)", (void*)g_symm_key_reg_name);
     return g_symm_key_reg_name;
 }
