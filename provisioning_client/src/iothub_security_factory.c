@@ -175,10 +175,12 @@ int iothub_security_set_symmetric_key_info(const char* registration_name, const 
 
 const char* iothub_security_get_symmetric_key()
 {
+    LogError("iothub_security_get_symmetric_key is called %p", (void *)(g_symm_key));
     return g_symm_key;
 }
 
 const char* iothub_security_get_symm_registration_name()
 {
+    LogError("iothub_security_get_symm_registration_name is called %p", (void *)(g_symm_key_reg_name));
     return g_symm_key_reg_name;
 }
