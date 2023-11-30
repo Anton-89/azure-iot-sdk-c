@@ -10,8 +10,7 @@
 
 #include "hsm_client_data.h"
 
-static SECURE_DEVICE_TYPE g_device_hsm_type = SECURE_DEVICE_TYPE_UNKNOWN;
-//static SECURE_DEVICE_TYPE g_device_hsm_type = SECURE_DEVICE_TYPE_SYMMETRIC_KEY;
+static SECURE_DEVICE_TYPE * g_device_hsm_type = NULL; //SECURE_DEVICE_TYPE_UNKNOWN; //SECURE_DEVICE_TYPE_SYMMETRIC_KEY
 static char* g_symm_key = NULL;
 static char* g_symm_key_reg_name = NULL;
 
@@ -69,8 +68,13 @@ int prov_dev_security_init(SECURE_DEVICE_TYPE hsm_type)
     }
     else
     {
-        g_device_hsm_type = hsm_type;
-        LogError("--g_device_hsm_type is updated as %d\n", g_device_hsm_type);
+        //g_device_hsm_type = hsm_type;
+        if (g_device_hsm_type == NULL) {
+            g_device_hsm_type = calloc(1, sizeof (SECURE_DEVICE_TYPE));
+            LogError("--g_device_hsm_type is created (%p)", (void *)g_device_hsm_type);
+        }
+        *g_device_hsm_type = hsm_type;
+        LogError("--g_device_hsm_type is updated as %d\n", *g_device_hsm_type);
         IOTHUB_SECURITY_TYPE security_type_from_iot = iothub_security_type();
         if (security_type_from_iot == IOTHUB_SECURITY_TYPE_UNKNOWN)
         {
@@ -118,7 +122,10 @@ void prov_dev_security_deinit(void)
 
 SECURE_DEVICE_TYPE prov_dev_security_get_type(void)
 {
-    return g_device_hsm_type;
+    if (g_device_hsm_type == NULL)
+        return SECURE_DEVICE_TYPE_UNKNOWN;
+    
+    return (SECURE_DEVICE_TYPE)*g_device_hsm_type;
 }
 
 int prov_dev_set_symmetric_key_info(const char* registration_name, const char* symmetric_key)
@@ -160,6 +167,7 @@ int prov_dev_set_symmetric_key_info(const char* registration_name, const char* s
 
             LogError("&&g_symm_key_reg_name is %s and g_symm_key is %s", g_symm_key_reg_name, g_symm_key);
             LogError("&&g_symm_key_reg_name is %p, and g_symm_key is %p", (void *)g_symm_key_reg_name, (void*)g_symm_key);
+            
             // Sync dps with iothub only if it is NULL
             if (iothub_security_get_symmetric_key() == NULL || iothub_security_get_symm_registration_name() == NULL)
             {
