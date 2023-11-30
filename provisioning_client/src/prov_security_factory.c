@@ -122,9 +122,11 @@ void prov_dev_security_deinit(void)
 
 SECURE_DEVICE_TYPE prov_dev_security_get_type(void)
 {
+    LogError("^^prov_dev_security_get_type is called and g_device_hsm_type is %p", (void *)g_device_hsm_type);
     if (g_device_hsm_type == NULL)
         return SECURE_DEVICE_TYPE_UNKNOWN;
-    
+
+    LogError("^^g_device_hsm_type is %d", (SECURE_DEVICE_TYPE)*g_device_hsm_type);
     return (SECURE_DEVICE_TYPE)*g_device_hsm_type;
 }
 
